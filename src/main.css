@@ -1,0 +1,16 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Cinzel';
+  src: url(./assets/Font/Cinzel-VariableFont_wght.ttf);
+}
+
+:root {
+  font-family: Cinzel, sans-serif;
+  --font-size: 1.6rem;
+  --font-weight: 400;
+}
+
+html {
+  font-size: 62.5%;
+}

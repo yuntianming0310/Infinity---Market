@@ -5,12 +5,27 @@
   src: url(./assets/Font/Cinzel-VariableFont_wght.ttf);
 }
 
+@font-face {
+  font-family: 'DMSans';
+  src: url(./assets/Font/DMSans-VariableFont_opszwght.ttf);
+}
+
 :root {
-  font-family: Cinzel, sans-serif;
-  --font-size: 1.6rem;
-  --font-weight: 400;
+  --default-font-family: DMSans;
+}
+
+@theme {
+  --font-Cinzel: Cinzel;
+  --font-DMSans: DMSans;
+  --color-primary-red: #d90211;
+  --color-primary-cyan: #6798a8;
 }
 
 html {
   font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+  background-color: #f7f7f7;
 }

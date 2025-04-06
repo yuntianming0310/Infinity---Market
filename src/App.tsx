@@ -1,18 +1,22 @@
-import Nav from '@/components/Nav'
-import LenisProvider from '@/providers/LenisProvider'
+import { Outlet } from 'react-router'
+
+import Nav from './components/Nav'
+import LenisProvider from './providers/LenisProvider'
 
 function App() {
   return (
     <LenisProvider>
       <PageWrapper>
         <Nav />
+
+        <Outlet />
       </PageWrapper>
     </LenisProvider>
   )
 }
 
 function PageWrapper({ children }: { children: React.ReactNode }) {
-  return <div className='w-full h-full px-24 py-14'>{children}</div>
+  return <div className='w-full px-48'>{children}</div>
 }
 
 export default App

@@ -12,11 +12,15 @@
 
 :root {
   --default-font-family: DMSans;
+  --color-bg-primary: #f7f7f7;
+  --color-text-primary: #27272a;
 }
 
 @theme {
   --font-Cinzel: Cinzel;
   --font-DMSans: DMSans;
+  --color-background-primary: #f7f7f7;
+  --color-primary: #27272a;
   --color-primary-red: #d90211;
   --color-primary-cyan: #6798a8;
 }
@@ -27,5 +31,6 @@ html {
 
 body {
   font-size: 1.6rem;
-  background-color: #f7f7f7;
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
 }

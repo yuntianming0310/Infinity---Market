@@ -1,0 +1,19 @@
+.linkToAbout::before {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -20%;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  z-index: -1;
+  transform: scale(0);
+  transform-origin: center;
+  transition: transform 0.4s ease;
+  pointer-events: none;
+}
+
+.linkToAbout:hover::before {
+  transform: scale(6);
+}

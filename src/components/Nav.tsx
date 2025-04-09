@@ -1,9 +1,12 @@
 import gsap from 'gsap'
-import { Link } from 'react-router-dom'
 import { useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+
+import { Link } from 'react-router-dom'
 
 import Logo from '../components/Logo'
-import { useGSAP } from '@gsap/react'
+
+gsap.registerPlugin(useGSAP)
 
 function Nav() {
   return (

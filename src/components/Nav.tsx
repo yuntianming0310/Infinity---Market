@@ -23,7 +23,7 @@ function NavList() {
   const navList = [
     { name: 'About', href: '/about' },
     { name: 'Market', href: '/market' },
-    { name: 'Contact', href: '/contact' },
+    { name: 'Connect', href: '/contact' },
   ]
 
   useGSAP(() => {

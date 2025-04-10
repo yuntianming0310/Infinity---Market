@@ -1,10 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import App from './App.tsx'
-import About from './pages/About.tsx'
-import Market from './pages/Market.tsx'
-import Contact from './pages/Contact.tsx'
-import Home from './pages/Home'
+import App from '@/App.tsx'
+import About from '@/pages/About.tsx'
+import Market from '@/pages/Market.tsx'
+import Contact from '@/pages/Contact.tsx'
+import Home from '@/pages/Home'
 
 const router = createBrowserRouter([
   {

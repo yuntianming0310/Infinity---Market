@@ -3,8 +3,8 @@ import { createRoot } from 'react-dom/client'
 
 import { RouterProvider } from 'react-router-dom'
 
-import './main.css'
-import router from './routes.tsx'
+import '@/main.css'
+import router from '@/routes.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

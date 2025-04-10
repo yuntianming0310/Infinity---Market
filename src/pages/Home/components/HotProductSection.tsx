@@ -1,9 +1,9 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 
-import ParallaxImage from '../../../components/ParallaxImage'
-import ParallaxLink from '../../../components/ParallaxLink'
-import DividerWithTitle from '../../../components/DividerWithTitle'
+import ParallaxImage from '@/components/ParallaxImage'
+import ParallaxLink from '@/components/ParallaxLink'
+import DividerWithTitle from '@/components/DividerWithTitle'
 
 import useInteractiveCursor from '../hooks/useInteractiveCursor'
 
@@ -22,10 +22,7 @@ function HotProductSection() {
   useInteractiveCursor(containerRef, cursorRef, svgRef, linkRef)
 
   return (
-    <section
-      className='w-full flex-col items-start justify-center mt-32 pb-8'
-      ref={containerRef}
-    >
+    <section className='w-full mt-32 pb-8' ref={containerRef}>
       <Cursor cursorRef={cursorRef} svgRef={svgRef} />
 
       <DividerWithTitle>

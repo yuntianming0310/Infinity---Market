@@ -16,6 +16,16 @@
   --color-text-primary: #27272a;
 }
 
+::selection {
+  background-color: var(--color-primary);
+  color: var(--color-background-primary);
+}
+
+::-moz-selection {
+  background-color: var(--color-primary);
+  color: var(--color-background-primary);
+}
+
 @theme {
   --font-Cinzel: Cinzel;
   --font-DMSans: DMSans;

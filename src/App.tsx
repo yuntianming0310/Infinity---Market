@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router'
 
-import Nav from './components/Nav'
-import LenisProvider from './providers/LenisProvider'
+import Nav from '@/components/Nav'
+import LenisProvider from '@/providers/LenisProvider'
 
 function App() {
   return (

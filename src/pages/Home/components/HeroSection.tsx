@@ -2,7 +2,7 @@ import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
 
-import ParallaxImage from '../../../components/ParallaxImage'
+import ParallaxImage from '@/components/ParallaxImage'
 
 function HeroSection() {
   return (
@@ -72,7 +72,7 @@ function PictureForShowing() {
       gsap.from('.hero--image', {
         opacity: 0,
         duration: 2.2,
-        delay: 1.5,
+        delay: 1.2,
         ease: 'power3.out',
       })
     },

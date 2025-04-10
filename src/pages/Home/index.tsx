@@ -1,3 +1,4 @@
+import Footer from './components/Footer'
 import HeroSection from './components/HeroSection'
 import HotProductSection from './components/HotProductSection'
 import IntroSection from './components/IntroSection'
@@ -8,6 +9,7 @@ function Home() {
       <HeroSection />
       <HotProductSection />
       <IntroSection />
+      <Footer />
     </Wrapper>
   )
 }

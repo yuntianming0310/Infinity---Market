@@ -1,7 +1,8 @@
 import gsap from 'gsap'
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
-import { Link } from 'react-router-dom'
+
+import TransitionLink from '@/components/TransitionLink'
 
 function Logo() {
   const logoRef = useRef(null)
@@ -9,27 +10,26 @@ function Logo() {
   useGSAP(() => {
     gsap.set(logoRef.current, {
       opacity: 0,
-      y: -30,
+      y: 30,
     })
 
     gsap.to(logoRef.current, {
       opacity: 1,
       y: 0,
       duration: 1,
-      ease: 'power2.out',
-      delay: 0.5,
+      ease: 'power4.out',
+      delay: 1,
     })
   }, [])
 
   return (
-    <Link
+    <TransitionLink
       className='uppercase font-normal text-black text-6xl'
       to='/'
-      viewTransition
       ref={logoRef}
     >
       Infinity
-    </Link>
+    </TransitionLink>
   )
 }
 

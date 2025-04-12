@@ -1,28 +1,26 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import ScrollTrigger from 'gsap/ScrollTrigger'
 
-gsap.registerPlugin(useGSAP)
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 function Footer() {
   return (
-    <footer className='w-full flex items-center justify-between mt-[40vh] pb-[10vh]'>
-      <ContactInfo />
-      <FooterTextContent />
-      <ContactInfo direction='R' />
+    <footer className='w-full flex flex-col items-center justify-center mt-[40vh]'>
+      <LogoText />
+      <FooterAndConnect />
     </footer>
   )
 }
 
-function FooterTextContent() {
-  const [tl, setTl] = useState<GSAPTimeline | null>(null)
+function LogoText() {
   const logoContainerRef = useRef<HTMLDivElement>(null)
 
-  const { contextSafe } = useGSAP(
+  useGSAP(
     () => {
       const timeline = gsap.timeline({ paused: true })
-      setTl(timeline)
 
       timeline
         .to(
@@ -45,17 +43,19 @@ function FooterTextContent() {
           },
           'start'
         )
+
+      ScrollTrigger.create({
+        trigger: logoContainerRef.current,
+        start: '-10% 72%',
+        end: '80% 72%',
+        onEnter: () => timeline.play(),
+        onEnterBack: () => timeline.reverse(),
+        // markers: true,
+        // toggleActions: 'play none reverse none',
+      })
     },
     { scope: logoContainerRef }
   )
-
-  const onMouseEnterAnimation = contextSafe(() => {
-    tl?.play()
-  })
-
-  const onMouseLeaveAnimation = contextSafe(() => {
-    tl?.reverse()
-  })
 
   const isRedColoring = (i: number) => i === 0 || i === 3 || i === 5
 
@@ -64,14 +64,12 @@ function FooterTextContent() {
   const logoText = 'Infinity'
 
   return (
-    <div className='text-center'>
+    <div className='self-end px-48'>
       <div
-        className='relative overflow-hidden cursor-default'
-        onMouseEnter={onMouseEnterAnimation}
-        onMouseLeave={onMouseLeaveAnimation}
+        className='font-Cinzel text-[14rem] relative overflow-hidden cursor-default select-none'
         ref={logoContainerRef}
       >
-        <p className='font-Cinzel text-[10.2rem] topPar'>
+        <p className='topPar'>
           {logoText.split('').map((char, index) => (
             <span
               key={`top-${index}`}
@@ -83,7 +81,7 @@ function FooterTextContent() {
             </span>
           ))}
         </p>
-        <p className='font-Cinzel text-[10.2rem] absolute bottomPar'>
+        <p className='absolute bottomPar'>
           {logoText.split('').map((char, index) => (
             <span
               key={`bottom-${index}`}
@@ -96,8 +94,18 @@ function FooterTextContent() {
           ))}
         </p>
       </div>
-      <p>All For What We Love 🤞</p>
-      <p className='text-2xl mt-4 text-zinc-500'>By Ken Wen</p>
+    </div>
+  )
+}
+
+function FooterAndConnect() {
+  return (
+    <div className='w-full flex justify-center px-48 pt-16 pb-48 bg-zinc-900 text-background-primary'>
+      <ContactInfo />
+      <div className='self-end text-center mr-auto'>
+        <p>All For What We Love 🤞</p>
+        <p className='text-2xl mt-4 text-zinc-500'>By Ken Wen</p>
+      </div>
     </div>
   )
 }
@@ -119,7 +127,7 @@ function ContactInfo({ direction = 'L' }: { direction?: 'L' | 'R' }) {
   ]
 
   return (
-    <div>
+    <div className='self-end mr-auto'>
       <h2 className='text-2xl uppercase text-zinc-400'>Connect</h2>
 
       <ul
@@ -128,7 +136,10 @@ function ContactInfo({ direction = 'L' }: { direction?: 'L' | 'R' }) {
         } text-2xl gap-1 mt-8`}
       >
         {infoList.map(({ href, name }) => (
-          <li className='w-fit hover:text-primary-cyan transition-colors duration-300'>
+          <li
+            key={name}
+            className='w-fit hover:text-primary-cyan transition-colors duration-300'
+          >
             <Link to={href}>{name}</Link>
           </li>
         ))}

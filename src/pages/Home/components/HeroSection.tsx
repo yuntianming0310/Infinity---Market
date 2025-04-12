@@ -6,7 +6,7 @@ import ParallaxImage from '@/components/ParallaxImage'
 
 function HeroSection() {
   return (
-    <section className='w-full'>
+    <section className='w-full px-48'>
       <Slogan />
       <PictureForShowing />
     </section>
@@ -30,7 +30,7 @@ function Slogan() {
         duration: 1,
         stagger: 0.1,
         ease: 'power3.out',
-        delay: 0.6,
+        delay: 1,
       })
     }, containerRef)
 
@@ -42,7 +42,7 @@ function Slogan() {
 
   return (
     <div
-      className='uppercase text-[8.2rem] font-Cinzel pt-32 tracking-tight'
+      className='uppercase text-[8.2rem] font-Cinzel tracking-tight'
       ref={containerRef}
     >
       <div className='flex overflow-hidden'>
@@ -72,7 +72,7 @@ function PictureForShowing() {
       gsap.from('.hero--image', {
         opacity: 0,
         duration: 2.2,
-        delay: 1.2,
+        delay: 1.5,
         ease: 'power3.out',
       })
     },

@@ -1,18 +1,39 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 import ParallaxImage from '@/components/ParallaxImage'
 import ParallaxLink from '@/components/ParallaxLink'
 import DividerWithTitle from '@/components/DividerWithTitle'
 
+import { useFetchData } from '@/hooks/useFetchData'
 import useInteractiveCursor from '../hooks/useInteractiveCursor'
+
+/**
+ * Type
+ */
+type category = 'doll' | 'model' | 'sticker' | 'figure' | 'flower'
 
 interface IProductItemProps {
   imgSrc: string
   imgAlt?: string
-  btnText?: string
+  category: category
 }
 
+type TProductItem = {
+  name: string
+  price: number
+  imageCover: string
+  category: category
+  description: string
+}
+
+/**
+ * Component
+ */
+
+// Main Comp
 function HotProductSection() {
   const containerRef = useRef<HTMLDivElement>(null)
   const cursorRef = useRef<HTMLDivElement>(null)
@@ -22,7 +43,7 @@ function HotProductSection() {
   useInteractiveCursor(containerRef, cursorRef, svgRef, linkRef)
 
   return (
-    <section className='w-full mt-32 pb-8' ref={containerRef}>
+    <section className='w-full mt-32 px-48 pb-8' ref={containerRef}>
       <Cursor cursorRef={cursorRef} svgRef={svgRef} />
 
       <DividerWithTitle>
@@ -30,17 +51,14 @@ function HotProductSection() {
         <span>Hot Selling</span>
       </DividerWithTitle>
 
-      <div className='w-full flex items-center justify-center gap-12'>
-        <ProductItem imgSrc='flower.jpg' />
-        <ProductItem imgSrc='flower.jpg' />
-        <ProductItem imgSrc='flower.jpg' />
-      </div>
+      <BestSellerProductsList />
 
       <LinkToMarket linkRef={linkRef} />
     </section>
   )
 }
 
+// Child Comp
 function Cursor({
   cursorRef,
   svgRef,
@@ -72,9 +90,68 @@ function Cursor({
   )
 }
 
-function ProductItem({ imgSrc, imgAlt, btnText }: IProductItemProps) {
+function BestSellerProductsList() {
+  const boxRef = useRef<HTMLDivElement>(null)
+  const { data: products, isLoading } = useFetchData<TProductItem[]>(
+    '/products/best-seller'
+  )
+
+  useGSAP(
+    () => {
+      gsap.fromTo(
+        boxRef.current,
+        {
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: boxRef.current,
+            start: 'top 85%',
+            // markers: true,
+          },
+        }
+      )
+    },
+    { scope: boxRef }
+  )
+
   return (
-    <div className='flex-1 overflow-hidden relative'>
+    <div
+      className='w-full flex items-center justify-center gap-12'
+      ref={boxRef}
+    >
+      {isLoading ? (
+        <div className='w-full min-h-[64rem]'></div>
+      ) : (
+        products?.map(
+          ({ name, imageCover, description, category }: TProductItem) => (
+            <ProductItem
+              key={name}
+              imgSrc={imageCover}
+              imgAlt={description}
+              category={category}
+            />
+          )
+        )
+      )}
+    </div>
+  )
+}
+
+function ProductItem({ imgSrc, imgAlt, category }: IProductItemProps) {
+  const CTA: Record<category, string> = {
+    doll: 'Cozy Buddy',
+    model: 'Build Fun',
+    sticker: 'Sticky Joy',
+    figure: 'Hero Figure',
+    flower: 'Fresh Bloom',
+  }
+
+  return (
+    <div className='flex-1 h-[64rem] overflow-hidden relative'>
       <ParallaxImage
         src={imgSrc}
         alt={imgAlt ?? 'A picture of the hot selling product'}
@@ -83,7 +160,7 @@ function ProductItem({ imgSrc, imgAlt, btnText }: IProductItemProps) {
         to='/'
         className='w-2/3 flex items-center justify-around absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 py-3 bg-cyan-50 rounded-full z-20'
       >
-        {btnText ?? 'Buy Now'}
+        {CTA[category] ?? 'Buy Now'}
       </ParallaxLink>
     </div>
   )

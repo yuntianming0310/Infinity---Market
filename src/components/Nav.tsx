@@ -2,9 +2,8 @@ import gsap from 'gsap'
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 
-import { Link } from 'react-router-dom'
-
 import Logo from '../components/Logo'
+import TransitionLink from '@/components/TransitionLink'
 
 gsap.registerPlugin(useGSAP)
 
@@ -21,16 +20,15 @@ function NavList() {
   const navListRef = useRef<HTMLUListElement | null>(null)
 
   const navList = [
-    { name: 'About', href: '/about' },
     { name: 'Market', href: '/market' },
-    { name: 'Connect', href: '/contact' },
+    { name: 'Connect', href: '/connect' },
   ]
 
-  useGSAP(() => {
-    const ctx = gsap.context(() => {
+  useGSAP(
+    () => {
       gsap.set('nav ul li', {
         opacity: 0,
-        y: -30,
+        y: 30,
       })
 
       gsap.to('nav ul li', {
@@ -38,21 +36,20 @@ function NavList() {
         y: 0,
         duration: 1,
         stagger: 0.1,
-        ease: 'power2.out',
-        delay: 0.6,
+        ease: 'power4.out',
+        delay: 1,
       })
-    }, navListRef)
-
-    return () => ctx.revert()
-  }, [])
+    },
+    { scope: navListRef }
+  )
 
   return (
     <ul className='flex gap-8 ml-auto' ref={navListRef}>
       {navList.map(item => (
         <li key={item.name} className='text-3xl uppercase'>
-          <Link to={item.href} viewTransition>
+          <TransitionLink to={item.href} viewTransition>
             {item.name}
-          </Link>
+          </TransitionLink>
         </li>
       ))}
     </ul>

@@ -10,7 +10,7 @@ function DividerWithTitle({ children }: { children: React.ReactNode }) {
       gsap.from('.bottom--line', {
         scrollTrigger: {
           trigger: containerRef.current,
-          start: 'top 70%',
+          start: 'top 85%',
         },
         width: 0,
         duration: 2,

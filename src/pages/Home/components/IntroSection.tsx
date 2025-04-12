@@ -19,7 +19,7 @@ function IntroSection() {
   useGSAP(() => {}, { scope: containerRef })
 
   return (
-    <section className='w-full mt-18 relative' ref={containerRef}>
+    <section className='w-full mt-18 px-48 relative' ref={containerRef}>
       <DividerWithTitle>
         <span>About</span>
         <span>Made for you</span>
@@ -49,6 +49,7 @@ function ShortIntroForAboutUs() {
           scrollTrigger: {
             trigger: imgContainerRef.current,
             start: 'top 75%',
+            // markers: true,
           },
         }
       )
@@ -57,9 +58,9 @@ function ShortIntroForAboutUs() {
   )
 
   return (
-    <div className='w-full space-y-10 text-4xl'>
+    <div className='w-full space-y-10 text-4xl' ref={imgContainerRef}>
       <div className='flex flex-col items-center justify-center gap-16'>
-        <div className='w-full h-[48rem] overflow-hidden' ref={imgContainerRef}>
+        <div className='w-full h-[48rem] overflow-hidden'>
           <ParallaxImage
             src='camera.jpg'
             alt='A image point out passion!'
@@ -153,7 +154,7 @@ function ParagraphForIntro() {
 function LinkToAbout() {
   return (
     <Link
-      className='absolute overflow-hidden left-0 bottom-0 uppercase text-7xl tracking-wider leading-tight mt-8 hover:text-background-primary px-18 py-8 rounded-2xl bg-blue-200 text-[#002857] transform transition-colors duration-500 linkToAbout'
+      className='absolute overflow-hidden left-0 bottom-0 uppercase text-7xl tracking-wider leading-tight mt-8 ml-48 px-18 py-8 rounded-2xl bg-blue-200 text-[#002857] hover:text-background-primary transform transition-colors duration-500 linkToAbout'
       to='/about'
     >
       Who <br /> We Are

@@ -1,3 +1,6 @@
+import Nav from '@/components/Nav'
+import Wrapper from '@/components/Wrapper'
+
 import Footer from './components/Footer'
 import HeroSection from './components/HeroSection'
 import HotProductSection from './components/HotProductSection'
@@ -11,14 +14,6 @@ function Home() {
       <IntroSection />
       <Footer />
     </Wrapper>
-  )
-}
-
-function Wrapper({ children }: { children: React.ReactNode }) {
-  return (
-    <div className='w-full flex flex-col items-start justify-center py-32'>
-      {children}
-    </div>
   )
 }
 

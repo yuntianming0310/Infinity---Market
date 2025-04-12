@@ -1,14 +1,13 @@
 import { Outlet } from 'react-router'
 
-import Nav from '@/components/Nav'
+// import Nav from '@/components/Nav'
 import LenisProvider from '@/providers/LenisProvider'
 
 function App() {
   return (
     <LenisProvider>
       <PageWrapper>
-        <Nav />
-
+        {/* <Nav /> */}
         <Outlet />
       </PageWrapper>
     </LenisProvider>
@@ -16,7 +15,7 @@ function App() {
 }
 
 function PageWrapper({ children }: { children: React.ReactNode }) {
-  return <div className='w-full px-48'>{children}</div>
+  return <div className='w-full pt-32'>{children}</div>
 }
 
 export default App

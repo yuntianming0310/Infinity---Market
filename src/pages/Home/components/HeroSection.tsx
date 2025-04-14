@@ -1,6 +1,7 @@
+import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
-import { useRef } from 'react'
+import SplitType from 'split-type'
 
 import ParallaxImage from '@/components/ParallaxImage'
 
@@ -14,51 +15,33 @@ function HeroSection() {
 }
 
 function Slogan() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const wordsRef = useRef<Array<HTMLDivElement | null>>([])
+  const sloganRef = useRef<HTMLDivElement>(null)
 
-  useGSAP(() => {
-    const ctx = gsap.context(() => {
-      gsap.set(wordsRef.current, {
+  useGSAP(
+    () => {
+      const sloganSplitType = new SplitType(sloganRef.current!, {
+        types: 'words',
+      })
+
+      gsap.from('.word', {
         y: 30,
         opacity: 0,
-      })
-
-      gsap.to(wordsRef.current, {
-        y: 0,
-        opacity: 1,
         duration: 1,
         stagger: 0.1,
-        ease: 'power3.out',
+        ease: 'power4.out',
         delay: 1,
       })
-    }, containerRef)
 
-    return () => ctx.revert()
-  }, [])
-
-  const words = ['From', 'us', 'to', 'you']
-  const classes = ['', 'text-primary-cyan', '', 'text-primary-red']
+      return () => sloganSplitType.revert()
+    },
+    { scope: sloganRef }
+  )
 
   return (
-    <div
-      className='uppercase text-[8.2rem] font-Cinzel tracking-tight'
-      ref={containerRef}
-    >
-      <div className='flex overflow-hidden'>
-        {words.map((word, index) => (
-          <div
-            key={index}
-            className={`overflow-hidden ${index > 0 ? 'ml-5' : ''}`}
-          >
-            <div
-              className={classes[index]}
-              ref={el => (wordsRef.current[index] = el)}
-            >
-              {word}
-            </div>
-          </div>
-        ))}
+    <div className='text-[8.2rem] font-Cinzel'>
+      <div ref={sloganRef}>
+        From <span className='text-primary-red'>Us</span> To{' '}
+        <span className='text-primary-cyan'>You</span>
       </div>
     </div>
   )
@@ -73,7 +56,7 @@ function PictureForShowing() {
         opacity: 0,
         duration: 2.2,
         delay: 1.5,
-        ease: 'power3.out',
+        ease: 'power4.out',
       })
     },
     { scope: containerRef }

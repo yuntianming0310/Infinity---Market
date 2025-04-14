@@ -9,7 +9,7 @@ gsap.registerPlugin(useGSAP)
 
 function Nav() {
   return (
-    <nav className='font-Cinzel flex items-center max-w-full fixed top-0 left-0 right-0 z-50 px-24 py-8'>
+    <nav className='text-white font-Cinzel flex items-center max-w-full fixed top-0 left-0 right-0 z-50 px-24 py-8 mix-blend-difference'>
       <Logo />
       <NavList />
     </nav>
@@ -46,7 +46,7 @@ function NavList() {
   return (
     <ul className='flex gap-8 ml-auto' ref={navListRef}>
       {navList.map(item => (
-        <li key={item.name} className='text-3xl uppercase'>
+        <li key={item.name} className='text-3xl'>
           <TransitionLink to={item.href} viewTransition>
             {item.name}
           </TransitionLink>

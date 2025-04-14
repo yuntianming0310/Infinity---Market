@@ -1,10 +1,10 @@
 import { useRef } from 'react'
-import { Link } from 'react-router-dom'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 
-import ParallaxImage from '@/components/ParallaxImage'
 import ParallaxLink from '@/components/ParallaxLink'
+import ParallaxImage from '@/components/ParallaxImage'
+import TransitionLink from '@/components/TransitionLink'
 import DividerWithTitle from '@/components/DividerWithTitle'
 
 import { useFetchData } from '@/hooks/useFetchData'
@@ -173,14 +173,14 @@ function LinkToMarket({
 }) {
   return (
     <div className='flex items-center justify-center'>
-      <Link
+      <TransitionLink
         className='text-4xl tracking-wider mt-18 px-2 py-4 relative z-20 group'
         to='/market'
         ref={linkRef}
       >
         View More Products
         <div className='absolute bottom-0 left-0 w-full h-[2px] bg-black origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-600 ease-in-out'></div>
-      </Link>
+      </TransitionLink>
     </div>
   )
 }

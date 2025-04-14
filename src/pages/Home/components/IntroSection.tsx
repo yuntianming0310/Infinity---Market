@@ -2,11 +2,11 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import SplitType from 'split-type'
 
-import { Link } from 'react-router-dom'
-
-import DividerWithTitle from '@/components/DividerWithTitle'
 import ParallaxImage from '@/components/ParallaxImage'
+import TransitionLink from '@/components/TransitionLink'
+import DividerWithTitle from '@/components/DividerWithTitle'
 
 import './IntroSection.css'
 
@@ -14,12 +14,8 @@ gsap.registerPlugin(useGSAP)
 gsap.registerPlugin(ScrollTrigger)
 
 function IntroSection() {
-  const containerRef = useRef<HTMLDivElement | null>(null)
-
-  useGSAP(() => {}, { scope: containerRef })
-
   return (
-    <section className='w-full mt-18 px-48 relative' ref={containerRef}>
+    <section className='w-full mt-18 px-48 relative'>
       <DividerWithTitle>
         <span>About</span>
         <span>Made for you</span>
@@ -35,24 +31,15 @@ function ShortIntroForAboutUs() {
 
   useGSAP(
     () => {
-      gsap.fromTo(
-        '.scrollTriggerImg',
-        {
-          opacity: 0,
-          scale: 1.5,
+      gsap.from('.scrollTriggerImg', {
+        opacity: 0,
+        duration: 1,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: imgContainerRef.current,
+          start: 'top 75%',
         },
-        {
-          opacity: 1,
-          scale: 1.25,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: imgContainerRef.current,
-            start: 'top 75%',
-            // markers: true,
-          },
-        }
-      )
+      })
     },
     { scope: imgContainerRef }
   )
@@ -81,54 +68,25 @@ function ParagraphForIntro() {
 
   useGSAP(
     () => {
-      const paragraphs = pRef.current?.querySelectorAll('p')
-      if (paragraphs) {
-        const masterTL = gsap.timeline({
-          scrollTrigger: {
-            trigger: pRef.current,
-            start: 'top 75%',
-            toggleActions: 'play none none none',
-          },
-        })
-        paragraphs.forEach(p => {
-          const spans = p.querySelectorAll('span')
-          masterTL.fromTo(
-            spans,
-            {
-              y: '100%',
-            },
-            {
-              y: 0,
-              duration: 1,
-              stagger: 0.1,
-              ease: 'power3.out',
-            },
-            0
-          )
-        })
-      }
+      const textContentSplitType = new SplitType('.animate-line', {
+        types: 'words',
+      })
+
+      gsap.from('.animate-line .word', {
+        y: '100%',
+        duration: 1,
+        stagger: 0.075,
+        ease: 'power4.out',
+        scrollTrigger: {
+          trigger: pRef.current,
+          start: 'top 75%',
+        },
+      })
+
+      return () => textContentSplitType.revert()
     },
     { scope: pRef }
   )
-
-  const p1Text = 'The joy of creation should'
-  const p2Text = 'not stay on the screen'
-
-  function renderAnimateTextContent(
-    pText: string,
-    keyWord: string,
-    color: string
-  ) {
-    return pText.split(' ').map((word, i) => {
-      const isColor = word === keyWord
-      const className = `inline-block ${isColor ? `text-primary-${color}` : ''}`
-      return (
-        <span className={className} key={i}>
-          {word}&nbsp;
-        </span>
-      )
-    })
-  }
 
   return (
     <>
@@ -136,12 +94,12 @@ function ParagraphForIntro() {
         className='w-full self-end uppercase font-light text-8xl tracking-tight text-right'
         ref={pRef}
       >
-        <p className='overflow-hidden'>
-          {renderAnimateTextContent(p1Text, 'creation', 'red')}
-        </p>
-        <p className='overflow-hidden'>
-          {renderAnimateTextContent(p2Text, 'screen', 'cyan')}
-        </p>
+        <div className='animate-line overflow-hidden'>
+          The joy of <span className='text-primary-red'>creation</span> should
+        </div>
+        <div className='animate-line overflow-hidden'>
+          not stay on the <span className='text-primary-cyan'>screen</span>
+        </div>
       </div>
       <p className='w-1/2 text-3xl self-end leading-normal text-left'>
         This website is a space we built for passion — turning the virtual into
@@ -153,12 +111,12 @@ function ParagraphForIntro() {
 
 function LinkToAbout() {
   return (
-    <Link
+    <TransitionLink
       className='absolute overflow-hidden left-0 bottom-0 uppercase text-7xl tracking-wider leading-tight mt-8 ml-48 px-18 py-8 rounded-2xl bg-blue-200 text-[#002857] hover:text-background-primary transform transition-colors duration-500 linkToAbout'
-      to='/about'
+      to='/connect'
     >
       Who <br /> We Are
-    </Link>
+    </TransitionLink>
   )
 }
 

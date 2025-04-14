@@ -1,0 +1,83 @@
+.link-outline-1,
+.link-outline-2 {
+  position: absolute;
+  width: 10rem;
+  height: 10rem;
+  transform: scale(1.25);
+  border: 1px solid var(--color-background-primary);
+}
+
+.link-outline-1 {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  animation: morph 4s ease-in-out infinite,
+    pulseAndJelly 4s ease-in-out infinite;
+}
+
+.link-outline-2 {
+  border-radius: 53% 47% 43% 57% / 51% 39% 61% 49%;
+  animation: reverseJelly 4s ease-in-out infinite;
+}
+
+.back-x::before,
+.back-x::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.4rem;
+  height: 2px;
+  border-radius: 11px;
+  background-color: currentColor;
+}
+
+.back-x::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.back-x::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.blob-image {
+  animation-delay: 2s;
+  animation: morph 4s ease-in-out infinite;
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+
+  50% {
+    border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
+    transform: scale(1.01);
+  }
+
+  100% {
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+}
+
+@keyframes pulseAndJelly {
+  0%,
+  100% {
+    transform: scale(1.2);
+    filter: blur(0.5px);
+  }
+
+  50% {
+    transform: scale(1.32);
+    filter: blur(1.5px);
+  }
+}
+
+@keyframes reverseJelly {
+  0%,
+  100% {
+    filter: blur(1.5px);
+  }
+
+  50% {
+    filter: blur(0.75px);
+  }
+}

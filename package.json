@@ -13,11 +13,13 @@
     "@gsap/react": "^2.1.2",
     "@tailwindcss/vite": "^4.1.2",
     "axios": "^1.8.4",
+    "gsap": "^3.12.7",
     "lenis": "^1.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router": "^6.30.0",
     "react-router-dom": "^6.30.0",
+    "split-type": "^0.3.4",
     "tailwindcss": "^4.1.2"
   },
   "devDependencies": {

@@ -5,12 +5,18 @@ interface IParallaxImageProps {
   src: string
   alt: string
   className?: string
+  customClass?: boolean
 }
 
 const lerp = (start: number, end: number, factor: number): number =>
   start + (end - start) * factor
 
-const ParallaxImage = ({ src, alt, className }: IParallaxImageProps) => {
+const ParallaxImage = ({
+  src,
+  alt,
+  className,
+  customClass = false,
+}: IParallaxImageProps) => {
   const imageRef = useRef<HTMLImageElement | null>(null)
   const bounds = useRef<{ top: number; bottom: number } | null>(null)
   const currentTranslateY = useRef(0)
@@ -73,7 +79,9 @@ const ParallaxImage = ({ src, alt, className }: IParallaxImageProps) => {
       ref={imageRef}
       src={src}
       alt={alt}
-      className={`w-full h-full object-cover ${className}`}
+      className={
+        customClass ? className : `w-full h-full object-cover ${className}`
+      }
       style={{
         willChange: 'transform',
         transform: 'translateY(0) scale(1.25)',

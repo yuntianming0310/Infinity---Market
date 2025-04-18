@@ -38,6 +38,7 @@ function ShortIntroForAboutUs() {
         scrollTrigger: {
           trigger: imgContainerRef.current,
           start: 'top 75%',
+          toggleActions: 'play none none reverse',
         },
       })
     },
@@ -80,6 +81,7 @@ function ParagraphForIntro() {
         scrollTrigger: {
           trigger: pRef.current,
           start: 'top 75%',
+          toggleActions: 'play none none reverse',
         },
       })
 

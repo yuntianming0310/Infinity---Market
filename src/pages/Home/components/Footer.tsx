@@ -46,12 +46,10 @@ function LogoText() {
 
       ScrollTrigger.create({
         trigger: logoContainerRef.current,
-        start: '-10% 72%',
-        end: '80% 72%',
-        onEnter: () => timeline.play(),
-        onEnterBack: () => timeline.reverse(),
+        animation: timeline,
+        start: '-5% 60%',
         // markers: true,
-        // toggleActions: 'play none reverse none',
+        toggleActions: 'play none none reverse',
       })
     },
     { scope: logoContainerRef }

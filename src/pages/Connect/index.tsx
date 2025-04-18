@@ -11,11 +11,12 @@ import './index.css'
 gsap.registerPlugin(useGSAP)
 
 const SECOND_PART_ANIMATION_DELAY = 1.8
+const SECOND_PART_ANIMATION_DURATION = 2
 
 function Contact() {
   return (
     <Wrapper
-      className='absolute top-0 left-0 right-0 bottom-0 pt-0 w-full h-full bg-black text-background-primary'
+      className='absolute top-0 left-0 right-0 bottom-0 pt-0 w-full h-full bg-black text-background-primary connect-page'
       enableNav={false}
     >
       <BackLink />
@@ -75,7 +76,7 @@ function ProfessionInfo() {
       })
 
       gsap.from('.above-line .char', {
-        duration: 2,
+        duration: SECOND_PART_ANIMATION_DURATION,
         y: '100%',
         stagger: 0.075,
         delay: SECOND_PART_ANIMATION_DELAY,
@@ -83,7 +84,7 @@ function ProfessionInfo() {
       })
 
       gsap.from('.below-line .char', {
-        duration: 2,
+        duration: SECOND_PART_ANIMATION_DURATION,
         y: '100%',
         stagger: 0.075,
         delay: SECOND_PART_ANIMATION_DELAY,
@@ -179,7 +180,7 @@ function SkillInfo() {
         splitInstances.push(splitText)
 
         gsap.from(splitText.words, {
-          duration: 2,
+          duration: SECOND_PART_ANIMATION_DURATION,
           y: '100%',
           stagger: 0.075,
           delay: SECOND_PART_ANIMATION_DELAY,
@@ -220,7 +221,7 @@ function DecorativeImage() {
     () => {
       gsap.from(imgBoxRef.current, {
         scale: 0,
-        duration: 2,
+        duration: SECOND_PART_ANIMATION_DURATION,
         ease: 'power4.out',
         delay: SECOND_PART_ANIMATION_DELAY,
       })
@@ -230,9 +231,9 @@ function DecorativeImage() {
 
   return (
     <div
-      className='w-2xl aspect-square absolute right-[7%] bottom-[4%] bg-[url("/cyber.jpg")] bg-cover bg-no-repeat bg-center mix-blend-lighten blob-image'
+      className='w-2xl aspect-square overflow-hidden absolute right-[7%] bottom-[4%] bg-[url("/cyber.jpg")] bg-cover bg-no-repeat bg-center mix-blend-lighten blob-image'
       ref={imgBoxRef}
-    ></div>
+    />
   )
 }
 

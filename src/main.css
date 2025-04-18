@@ -29,6 +29,7 @@
 @theme {
   --font-Cinzel: Cinzel;
   --font-DMSans: DMSans;
+  --text-fs-primay: 1.4rem;
   --color-background-primary: #f7f7f7;
   --color-primary: #27272a;
   --color-primary-red: #d90211;

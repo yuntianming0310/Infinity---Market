@@ -110,6 +110,7 @@ function BestSellerProductsList() {
           scrollTrigger: {
             trigger: boxRef.current,
             start: 'top 85%',
+            toggleActions: 'play none none reverse',
             // markers: true,
           },
         }
@@ -126,16 +127,14 @@ function BestSellerProductsList() {
       {isLoading ? (
         <div className='w-full min-h-[64rem]'></div>
       ) : (
-        products?.map(
-          ({ name, imageCover, description, category }: TProductItem) => (
-            <ProductItem
-              key={name}
-              imgSrc={imageCover}
-              imgAlt={description}
-              category={category}
-            />
-          )
-        )
+        products?.map(({ name, imageCover, description, category }) => (
+          <ProductItem
+            key={name}
+            imgSrc={imageCover}
+            imgAlt={description}
+            category={category}
+          />
+        ))
       )}
     </div>
   )

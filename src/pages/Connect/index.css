@@ -1,3 +1,13 @@
+.connect-page ::selection {
+  background: var(--color-background-primary);
+  color: black;
+}
+
+.connect-page ::-moz-selection {
+  background: var(--color-background-primary);
+  color: black;
+}
+
 .link-outline-1,
 .link-outline-2 {
   position: absolute;
@@ -39,6 +49,7 @@
 }
 
 .blob-image {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
   animation-delay: 2s;
   animation: morph 4s ease-in-out infinite;
 }
@@ -50,7 +61,6 @@
 
   50% {
     border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%;
-    transform: scale(1.01);
   }
 
   100% {

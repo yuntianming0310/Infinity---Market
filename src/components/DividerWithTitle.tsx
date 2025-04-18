@@ -11,6 +11,7 @@ function DividerWithTitle({ children }: { children: React.ReactNode }) {
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top 85%',
+          toggleActions: 'play none none reverse',
         },
         width: 0,
         duration: 2,

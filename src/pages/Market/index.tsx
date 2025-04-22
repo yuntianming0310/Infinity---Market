@@ -1,12 +1,12 @@
 import gsap from 'gsap'
 import { useRef } from 'react'
 import { useGSAP } from '@gsap/react'
+import { Link } from 'react-router-dom'
 
 import { useFetchData } from '@/hooks/useFetchData'
 
 import Wrapper from '@/components/Wrapper'
 import FloatText from '@/components/FloatText'
-import { Link, useNavigate } from 'react-router-dom'
 
 type TProductItem = {
   id: string
@@ -30,7 +30,7 @@ function HeroSection() {
   return (
     <div className='w-full h-fit flex justify-end mx-auto px-48'>
       <FloatText
-        className='w-1/2 inline-block text-left overflow-hidden text-fs-primay'
+        className='w-1/2 inline-block text-left text-fs-primay'
         animationOptions={{
           y: 30,
           duration: 1,
@@ -88,8 +88,7 @@ function ProductItem({
   price,
   id,
 }: TProductItem) {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const navigate = useNavigate()
+  const containerRef = useRef<HTMLAnchorElement>(null)
 
   useGSAP(
     () => {
@@ -108,16 +107,17 @@ function ProductItem({
     { scope: containerRef }
   )
 
-  function handleClick() {
-    navigate('/product', {
-      state: {
-        id,
-      },
-    })
-  }
-
   return (
-    <div ref={containerRef} className='cursor-pointer' onClick={handleClick}>
+    <Link
+      ref={containerRef}
+      className='cursor-pointer'
+      to={'/product'}
+      state={{
+        id,
+        imageCover,
+      }}
+      viewTransition
+    >
       <div className='flex-1 h-[56rem] flex items-center justify-center bg-transparent'>
         <img
           src={imageCover}
@@ -137,7 +137,7 @@ function ProductItem({
         <div className='overflow-hidden text-2xl tracking-widest'>{name}</div>
         <div className='overflow-hidden text-lg tracking-wider'>¥{price}</div>
       </FloatText>
-    </div>
+    </Link>
   )
 }
 

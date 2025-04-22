@@ -46,11 +46,6 @@ body {
   color: var(--color-text-primary);
 }
 
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: 0.5s;
-}
-
 @keyframes page-out {
   from {
     opacity: 1;
@@ -74,9 +69,13 @@ body {
   }
 }
 
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+}
+
 ::view-transition-old(root) {
   animation: 1.5s cubic-bezier(0.87, 0, 0.13, 1) both page-out;
-  background-color: var(--color-primary);
 }
 
 ::view-transition-new(root) {

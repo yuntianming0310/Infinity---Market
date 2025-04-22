@@ -15,6 +15,7 @@ function Wrapper({
     <div
       className={clsx(
         'w-full flex flex-col items-start justify-center pt-32',
+        enableNav && 'mt-32',
         className
       )}
     >

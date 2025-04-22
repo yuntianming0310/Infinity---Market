@@ -13,7 +13,7 @@ function App() {
 }
 
 function PageWrapper({ children }: { children: React.ReactNode }) {
-  return <div className='w-full pt-32'>{children}</div>
+  return <div className='w-full'>{children}</div>
 }
 
 export default App

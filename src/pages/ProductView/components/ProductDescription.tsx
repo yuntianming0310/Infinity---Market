@@ -1,11 +1,13 @@
-import { useCartActions } from '@/stores/cartStore'
+import { useCartActions, useCartProducts } from '@/stores/cartStore'
 import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 interface IProductDescriptionProps {
   id: string
   name: string
   description: string
   price: number
+  imageCover: string
 }
 
 function ProductDescription({
@@ -13,9 +15,11 @@ function ProductDescription({
   name,
   description,
   price,
+  imageCover,
 }: IProductDescriptionProps) {
   const [count, setCount] = useState(1)
   const { addProduct } = useCartActions()
+  const products = useCartProducts()
 
   function handleIncreaseProductCounts() {
     if (count >= 15) {
@@ -41,10 +45,10 @@ function ProductDescription({
       name,
       price,
       quantity: count,
-      imageCover: 'xx',
+      imageCover,
     }
 
-    addProduct(product)
+    toast.success('Successfully Added')
   }
 
   return (
@@ -84,7 +88,7 @@ function ProductDescription({
       <button
         className='uppercase cursor-pointer font-semibold rounded-full px-24 py-4 bg-amber-300 mt-18'
         style={{
-          boxShadow: '0 4px 9px rgba(0, 0, 0, 0.2)',
+          boxShadow: '0 4px 9px rgb(229, 193, 65)',
         }}
         onClick={handleAddToCart}
       >

@@ -8,59 +8,50 @@ type ProductItem = {
   imageCover: string
 }
 
-type CartActions = {
+interface CartState {
+  products: ProductItem[]
   addProduct: (item: ProductItem) => void
   removeProduct: (id: ProductItem['id']) => void
   clearCart: () => void
 }
 
-interface CartState {
-  products: ProductItem[]
-  actions: CartActions
-}
-
 const useCartStore = create<CartState>(set => ({
   products: [],
 
-  actions: {
-    addProduct(item) {
-      return set(state => {
-        const isExist = state.products.find(product => product.id === item.id)
+  addProduct(item) {
+    return set(state => {
+      const isExist = state.products.find(product => product.id === item.id)
 
-        if (isExist) {
-          return {
-            products: state.products.map(product =>
-              product.id === item.id
-                ? { ...product, quantity: product.quantity + item.quantity }
-                : product
-            ),
-          }
+      if (isExist) {
+        return {
+          products: state.products.map(product =>
+            product.id === item.id
+              ? { ...product, quantity: product.quantity + item.quantity }
+              : product
+          ),
         }
+      }
 
-        return { products: [...state.products, item] }
-      })
-    },
+      return { products: [...state.products, item] }
+    })
+  },
 
-    removeProduct(id) {
-      return set(state => ({
-        products: state.products.filter(item => item.id !== id),
-      }))
-    },
+  removeProduct(id) {
+    return set(state => ({
+      products: state.products.filter(item => item.id !== id),
+    }))
+  },
 
-    clearCart() {
-      return set({ products: [] })
-    },
+  clearCart() {
+    return set({ products: [] })
   },
 }))
 
-export const useProducts = () => useCartStore(state => state.products)
+export const useCartProducts = () => useCartStore(state => state.products)
 
-export const useCartActions = () => useCartStore(state => state.actions)
-
-// export const useAddProduct = () =>
-//   useCartStore(state => state.actions.addProduct)
-
-// export const useRemoveProduct = () =>
-//   useCartStore(state => state.actions.removeProduct)
-
-// export const useClearCart = () => useCartStore(state => state.actions.clearCart)
+export const useCartActions = () => {
+  const addProduct = useCartStore(state => state.addProduct)
+  const removeProduct = useCartStore(state => state.removeProduct)
+  const clearCart = useCartStore(state => state.clearCart)
+  return { addProduct, removeProduct, clearCart }
+}

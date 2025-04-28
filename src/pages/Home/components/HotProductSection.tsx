@@ -69,7 +69,7 @@ function Cursor({
   return (
     <div
       ref={cursorRef}
-      className='w-3xs h-64 overflow-hidden fixed rounded-full flex items-center justify-center transform -translate-x-1/2 -translate-y-1/2 z-10 bg-[#96f2d780] will-change-contents'
+      className='w-96 aspect-square overflow-hidden fixed rounded-full flex items-center justify-center transform -translate-x-1/2 -translate-y-1/2 z-10 bg-[#96f2d780] will-change-contents'
     >
       <svg
         ref={svgRef}
@@ -78,7 +78,7 @@ function Cursor({
         viewBox='0 0 24 24'
         strokeWidth={1.5}
         stroke='#333'
-        className='w-32 h-32'
+        className='w-1/2 aspect-square'
       >
         <path
           strokeLinecap='round'

@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router'
+import { Toaster } from 'react-hot-toast'
 
 import LenisProvider from '@/providers/LenisProvider'
 
@@ -8,6 +9,8 @@ function App() {
       <PageWrapper>
         <Outlet />
       </PageWrapper>
+
+      <Toaster />
     </LenisProvider>
   )
 }

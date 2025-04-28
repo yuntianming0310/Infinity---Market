@@ -23,8 +23,12 @@ function Logo() {
   }, [])
 
   return (
-    <TransitionLink className='font-normal text-6xl' to='/' ref={logoRef}>
-      Infinity
+    <TransitionLink
+      className='font-light tracking-wide text-5xl'
+      to='/'
+      ref={logoRef}
+    >
+      InfiNity.
     </TransitionLink>
   )
 }

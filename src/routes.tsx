@@ -5,6 +5,7 @@ import Connect from '@/pages/Connect'
 import Home from '@/pages/Home'
 import ProductView from '@/pages/ProductView'
 import Market from '@/pages/Market'
+import Cart from '@/pages/Cart'
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: 'connect',
         element: <Connect />,
+      },
+      {
+        path: 'cart',
+        element: <Cart />,
       },
     ],
   },

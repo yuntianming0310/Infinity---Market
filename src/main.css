@@ -10,6 +10,16 @@
   src: url(./assets/Font/DMSans-VariableFont_opszwght.ttf);
 }
 
+@font-face {
+  font-family: 'NotoSans-CN';
+  src: url(./assets/Font/NotoSansSC-VariableFont_wght.ttf);
+}
+
+@font-face {
+  font-family: 'XiaoWei';
+  src: url(./assets/Font/ZCOOLXiaoWei-Regular.ttf);
+}
+
 :root {
   --default-font-family: DMSans;
   --color-bg-primary: #f7f7f7;
@@ -29,6 +39,8 @@
 @theme {
   --font-Cinzel: Cinzel;
   --font-DMSans: DMSans;
+  --font-NotoSans-CN: NotoSans-CN;
+  --font-XiaoWei: XiaoWei;
   --text-fs-primay: 1.4rem;
   --color-background-primary: #f7f7f7;
   --color-primary: #27272a;

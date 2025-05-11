@@ -9,6 +9,7 @@ import DividerWithTitle from '@/components/DividerWithTitle'
 
 import { useFetchData } from '@/hooks/useFetchData'
 import useInteractiveCursor from '../hooks/useInteractiveCursor'
+import { getBestSellerProducts } from '@/api/products'
 
 /**
  * Type
@@ -78,7 +79,7 @@ function Cursor({
         viewBox='0 0 24 24'
         strokeWidth={1.5}
         stroke='#333'
-        className='w-1/2 aspect-square'
+        className='w-2/5 aspect-square'
       >
         <path
           strokeLinecap='round'
@@ -92,8 +93,8 @@ function Cursor({
 
 function BestSellerProductsList() {
   const boxRef = useRef<HTMLDivElement>(null)
-  const { data: products, isLoading } = useFetchData<TProductItem[]>(
-    '/products/best-seller'
+  const { data: products, loading: isLoading } = useFetchData<TProductItem[]>(
+    getBestSellerProducts
   )
 
   useGSAP(

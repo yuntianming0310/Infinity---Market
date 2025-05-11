@@ -37,10 +37,9 @@ function ProductItem({
     <TransitionLink
       ref={containerRef}
       className='cursor-pointer'
-      to={'/product'}
+      to='/product'
       state={{
         id: _id,
-        imageCover,
       }}
     >
       <div className='flex-1 h-[56rem] flex items-center justify-center bg-transparent'>

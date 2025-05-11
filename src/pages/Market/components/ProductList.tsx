@@ -1,14 +1,14 @@
 import { TProductItem } from '@/types'
 import { useFetchData } from '@/hooks/useFetchData'
-
 import ProductItem from '@/pages/Market/components/ProductItem'
+import { getAllProducts } from '@/api/products'
 
 function ProductList() {
-  const { data, isLoading } = useFetchData<TProductItem[]>('/products', {
-    params: {
+  const { data, loading: isLoading } = useFetchData<TProductItem[]>(() =>
+    getAllProducts({
       isFeatured: false,
-    },
-  })
+    })
+  )
 
   return (
     <div className='w-full grid grid-cols-2 px-48 py-32 gap-8'>
@@ -24,7 +24,7 @@ function ProductList() {
             description={product.description}
             name={product.name}
             price={product.price}
-            key={product.name}
+            key={product._id}
           />
         ))
       )}

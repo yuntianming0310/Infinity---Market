@@ -1,11 +1,20 @@
-import { useRef, useEffect, useState } from 'react'
-import { createPortal } from 'react-dom'
-import { useLenis } from 'lenis/react'
 import clsx from 'clsx'
-
-import TransitionLink from '@/components/TransitionLink'
-import useMenuAnimations from '@/hooks/useMenuAnimations'
+import toast from 'react-hot-toast'
+import { useLenis } from 'lenis/react'
 import { Link } from 'react-router-dom'
+import { createPortal } from 'react-dom'
+import { useRef, useEffect, useState } from 'react'
+
+import { logout } from '@/api/authentication'
+
+import useMenuAnimations from '@/hooks/useMenuAnimations'
+
+import { useAuth } from '@/providers/AuthProvider'
+
+import LoginForm from '@/components/LoginForm'
+import SignUpForm from '@/components/SignUpForm'
+import TransitionLink from '@/components/TransitionLink'
+import { useCartActions } from '@/stores/cartStore'
 
 function Menu({ isOpen }: { isOpen: boolean }) {
   const [uiState, setUiState] = useState<
@@ -17,20 +26,36 @@ function Menu({ isOpen }: { isOpen: boolean }) {
 
   const lenis = useLenis()
 
+  const { user, setUser } = useAuth()
+  const { clearCart } = useCartActions()
   const animations = useMenuAnimations(menuRef)
 
   const menuItemList = [
-    { type: 'link', name: 'Shopping', href: '/market' },
-    { type: 'link', name: 'Hot Selling', href: '/hot' },
-    { type: 'link', name: 'Contact Us', href: '/connect' },
-    { type: 'link', name: 'Inspiration', href: '/create' },
-    { type: 'link', name: 'About', href: '/about' },
+    { type: 'link', name: 'Shopping', href: '/market', id: 0 },
+    { type: 'link', name: 'Hot Selling', href: '/hot', id: 1 },
+    { type: 'link', name: 'Contact Us', href: '/connect', id: 2 },
+    { type: 'link', name: 'Inspiration', href: '/create', id: 3 },
+    { type: 'link', name: 'About', href: '/about', id: 4 },
     {
       type: 'button',
-      name: 'Sign In',
-      onClick: () => {
-        // Switch from menu to login state
-        transitionToLoginForm()
+      name: user ? 'Log Out' : 'Sign In',
+      id: 5,
+      onClick: async () => {
+        if (!user) {
+          // Switch from menu to login state
+          transitionToLoginForm()
+        } else {
+          toast
+            .promise(logout, {
+              loading: 'Logging out...',
+              success: 'You have been logged out.',
+              error: err => `Logout failed: ${err.message}`,
+            })
+            .then(() => {
+              setUser(null)
+              clearCart()
+            })
+        }
       },
     },
   ]
@@ -42,7 +67,7 @@ function Menu({ isOpen }: { isOpen: boolean }) {
     } else {
       closeOverlay()
     }
-  }, [isOpen, lenis])
+  }, [isOpen])
 
   // Control functions for UI state transitions
   const openOverlay = () => {
@@ -143,7 +168,7 @@ function Menu({ isOpen }: { isOpen: boolean }) {
         {/* Menu Items */}
         <ul className='menu-items flex flex-col items-start gap-6 text-6xl text-white font-light tracking-tight uppercase font-DMSans'>
           {menuItemList.map(item => (
-            <li key={item.name} className='overflow-hidden'>
+            <li key={item.id} className='overflow-hidden'>
               {item.type === 'link' ? (
                 <TransitionLink to={item.href!}>{item.name}</TransitionLink>
               ) : (
@@ -174,126 +199,6 @@ function Menu({ isOpen }: { isOpen: boolean }) {
       <Footer />
     </div>,
     document.body
-  )
-}
-
-function LoginForm({
-  transitionToSignUpForm,
-  backToMenu,
-}: {
-  transitionToSignUpForm: () => void
-  backToMenu: () => void
-}) {
-  return (
-    <div className='login-form fixed left-1/4 bottom-1/6 text-white w-108'>
-      <h2 className='text-6xl mb-6 font-light uppercase font-DMSans'>
-        Sign In
-      </h2>
-      <div className='space-y-4'>
-        <div>
-          <label className='block text-md mb-1'>Email</label>
-          <input
-            type='email'
-            className='w-full bg-transparent border-b border-white/50 py-2 px-1 focus:outline-none focus:border-white'
-          />
-        </div>
-        <div>
-          <label className='block text-md mb-1'>Password</label>
-          <input
-            type='password'
-            className='w-full bg-transparent border-b border-white/50 py-2 px-1 focus:outline-none focus:border-white'
-          />
-        </div>
-        <div className='flex justify-between pt-4'>
-          <button className='px-6 py-2 border border-white/50 hover:bg-white hover:text-black transition-colors cursor-pointer'>
-            Sign In
-          </button>
-          <button
-            className='px-6 py-2 text-white/70 hover:text-white transition-colors cursor-pointer'
-            onClick={backToMenu}
-          >
-            Back
-          </button>
-        </div>
-
-        <p className='mt-4 text-2xl'>
-          Need an account?{' '}
-          <button
-            className='border-b border-white cursor-pointer hover:border-transparent'
-            onClick={transitionToSignUpForm}
-          >
-            Sign Up
-          </button>
-        </p>
-      </div>
-    </div>
-  )
-}
-
-function SignUpForm({
-  transitionFromSignUpToLogin,
-  backToMenu,
-}: {
-  transitionFromSignUpToLogin: () => void
-  backToMenu: () => void
-}) {
-  return (
-    <div className='signup-form fixed left-1/4 bottom-1/6 text-white w-108'>
-      <h2 className='text-6xl mb-6 font-light uppercase font-DMSans'>
-        Sign Up
-      </h2>
-      <div className='space-y-4'>
-        <div>
-          <label className='block text-md mb-1'>Name</label>
-          <input
-            type='text'
-            className='w-full bg-transparent border-b border-white/50 py-2 px-1 focus:outline-none focus:border-white'
-          />
-        </div>
-        <div>
-          <label className='block text-md mb-1'>Email</label>
-          <input
-            type='email'
-            className='w-full bg-transparent border-b border-white/50 py-2 px-1 focus:outline-none focus:border-white'
-          />
-        </div>
-        <div>
-          <label className='block text-md mb-1'>Password</label>
-          <input
-            type='password'
-            className='w-full bg-transparent border-b border-white/50 py-2 px-1 focus:outline-none focus:border-white'
-          />
-        </div>
-        <div>
-          <label className='block text-md mb-1'>Comfirm Password</label>
-          <input
-            type='password'
-            className='w-full bg-transparent border-b border-white/50 py-2 px-1 focus:outline-none focus:border-white'
-          />
-        </div>
-        <div className='flex justify-between pt-4'>
-          <button className='px-6 py-2 border border-white/50 hover:bg-white hover:text-black transition-colors cursor-pointer'>
-            Sign Up
-          </button>
-          <button
-            className='px-6 py-2 text-white/70 hover:text-white transition-colors cursor-pointer'
-            onClick={backToMenu}
-          >
-            Back
-          </button>
-        </div>
-
-        <p className='mt-4 text-2xl'>
-          Already have an account?{' '}
-          <button
-            className='border-b border-white cursor-pointer hover:border-transparent'
-            onClick={transitionFromSignUpToLogin}
-          >
-            Sign In
-          </button>
-        </p>
-      </div>
-    </div>
   )
 }
 

@@ -1,13 +1,13 @@
+import clsx from 'clsx'
 import gsap from 'gsap'
-import { forwardRef, useRef } from 'react'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { ShoppingBag } from 'lucide-react'
+import { forwardRef, useRef } from 'react'
 
 import Logo from '@/components/Logo'
 import TransitionLink from '@/components/TransitionLink'
 import HamburgerButton from '@/components/HamburgerButton'
-import clsx from 'clsx'
 
 gsap.registerPlugin(useGSAP, ScrollTrigger)
 
@@ -72,9 +72,9 @@ function Nav() {
 
 const NavList = forwardRef<HTMLUListElement>((_, ref) => {
   const navList = [
-    { content: 'Market', href: '/market' },
-    { content: 'Connect', href: '/connect' },
-    { content: <HamburgerButton /> },
+    { content: 'Market', href: '/market', id: 0 },
+    { content: 'Connect', href: '/connect', id: 1 },
+    { content: <HamburgerButton />, id: 2 },
     {
       content: (
         <ShoppingBag
@@ -84,6 +84,8 @@ const NavList = forwardRef<HTMLUListElement>((_, ref) => {
         />
       ),
       href: '/cart',
+      needProtected: true,
+      id: 3,
     },
   ]
 
@@ -93,15 +95,15 @@ const NavList = forwardRef<HTMLUListElement>((_, ref) => {
       ref={ref}
     >
       {navList.map(item => (
-        <li key={item.href}>
+        <li key={item.id}>
           {item.href ? (
             <TransitionLink
               to={item.href}
+              needProtected={item.needProtected}
               className={clsx(
                 typeof item.content === 'string' &&
                   'hover:text-primary-cyan transition-colors duration-500'
               )}
-              viewTransition
             >
               {item.content}
             </TransitionLink>

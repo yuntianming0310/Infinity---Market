@@ -1,6 +1,7 @@
 import gsap from 'gsap'
 import { LenisRef, ReactLenis } from 'lenis/react'
 import { useEffect, useRef } from 'react'
+import { useLocation } from 'react-router'
 
 interface LenisProviderProps {
   children: React.ReactNode
@@ -8,6 +9,8 @@ interface LenisProviderProps {
 
 function LenisProvider({ children }: LenisProviderProps) {
   const lenisRef = useRef<LenisRef | null>(null)
+
+  const location = useLocation()
 
   useEffect(() => {
     function update(time: number) {
@@ -18,6 +21,10 @@ function LenisProvider({ children }: LenisProviderProps) {
 
     return () => gsap.ticker.remove(update)
   }, [])
+
+  useEffect(() => {
+    lenisRef.current?.lenis?.scrollTo(0, { immediate: true })
+  }, [location.pathname])
 
   return (
     <ReactLenis

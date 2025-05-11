@@ -1,36 +1,50 @@
-import { axiosInstance } from '@/api'
 import { useEffect, useState } from 'react'
 
+interface FetchState<T> {
+  data: T | null
+  loading: boolean
+  error: string | null
+}
+
 export function useFetchData<T>(
-  url: string,
-  options?: { params?: Record<string, string | number | boolean> }
-): { data: T | null; isLoading: boolean; error: Error | null } {
+  apiFn: () => Promise<T>,
+  deps: any[] = []
+): FetchState<T> {
   const [data, setData] = useState<T | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
-  const [error, setError] = useState<Error | null>(null)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    let isUnmount = false
-    if (isUnmount) return
+    let isCancelled = false
 
     async function fetchData() {
-      setIsLoading(true)
+      setLoading(true)
       try {
-        const res = await axiosInstance.get(url, options)
-        if (res.data.status === 'success') setData(res.data.data.data)
-      } catch (err: unknown) {
-        setError(err as Error)
+        const result = await apiFn()
+        if (!isCancelled) {
+          setData(result)
+          setError(null)
+        }
+      } catch (err: any) {
+        if (!isCancelled) {
+          setError(
+            err?.response?.data?.message || err?.message || 'Error occurred'
+          )
+          setData(null)
+        }
       } finally {
-        setIsLoading(false)
+        if (!isCancelled) {
+          setLoading(false)
+        }
       }
     }
 
     fetchData()
 
     return () => {
-      isUnmount = true
+      isCancelled = true
     }
-  }, [])
+  }, deps)
 
-  return { data, isLoading, error }
+  return { data, loading, error }
 }

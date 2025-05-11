@@ -1,63 +1,50 @@
-import { useCartActions, useCartProducts } from '@/stores/cartStore'
 import { useState } from 'react'
+import { AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 
-interface IProductDescriptionProps {
-  id: string
-  name: string
-  description: string
-  price: number
-  imageCover: string
-}
+import { addItemToCart } from '@/api/carts'
+import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
+import { useCartActions } from '@/stores/cartStore'
+import { TProductItem } from '@/types'
 
-function ProductDescription({
-  id,
-  name,
-  description,
-  price,
-  imageCover,
-}: IProductDescriptionProps) {
+function ProductDescription({ product }: { product: TProductItem }) {
   const [count, setCount] = useState(1)
   const { addProduct } = useCartActions()
-  const products = useCartProducts()
 
   function handleIncreaseProductCounts() {
-    if (count >= 15) {
-      // TODO
-      return
-    }
-
     setCount(prev => prev + 1)
   }
 
   function handleDecreaseProductCounts() {
-    if (count <= 1) {
-      // TODO
-      return
-    }
-
-    setCount(prev => prev - 1)
+    setCount(prev => (prev > 1 ? prev - 1 : prev))
   }
 
-  function handleAddToCart() {
-    const product = {
-      id,
-      name,
-      price,
-      quantity: count,
-      imageCover,
+  const handleAddToCart = useDebouncedCallback(async () => {
+    try {
+      await addItemToCart(product._id, count)
+      addProduct({
+        product,
+        quantity: count,
+      })
+      toast.success('Successfully Added')
+    } catch (err) {
+      if (err instanceof AxiosError) {
+        if (err.status !== 401) {
+          toast.error(err.message)
+        }
+      } else {
+        toast.error('An unexpected error occurred.')
+      }
     }
-
-    toast.success('Successfully Added')
-  }
+  }, 500)
 
   return (
-    <div className='flex-1/4 flex flex-col justify-center items-start'>
+    <div className='flex-1/4 flex flex-col justify-center items-start product-desc'>
       <span className='font-Cinzel font-semibold text-6xl mb-12'>
-        {price} ¥
+        {product.price} $
       </span>
-      <h1 className='text-6xl font-semibold mb-12'>{name}</h1>
-      <p className='leading-loose text-2xl'>{description}</p>
+      <h1 className='text-6xl font-semibold mb-12'>{product.name}</h1>
+      <p className='leading-loose text-2xl'>{product.description}</p>
 
       <span className='mt-18 text-2xl text-zinc-400 tracking-wide'>Amount</span>
       <div className='flex items-center justify-center mt-2'>

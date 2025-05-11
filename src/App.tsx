@@ -2,13 +2,16 @@ import { Outlet } from 'react-router'
 import { Toaster } from 'react-hot-toast'
 
 import LenisProvider from '@/providers/LenisProvider'
+import { AuthProvider } from '@/providers/AuthProvider'
 
 function App() {
   return (
     <LenisProvider>
-      <PageWrapper>
-        <Outlet />
-      </PageWrapper>
+      <AuthProvider>
+        <PageWrapper>
+          <Outlet />
+        </PageWrapper>
+      </AuthProvider>
 
       <Toaster />
     </LenisProvider>

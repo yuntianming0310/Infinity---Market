@@ -16,6 +16,7 @@
     "@hugeicons/react": "^1.0.5",
     "@tailwindcss/vite": "^4.1.2",
     "axios": "^1.8.4",
+    "canvas-confetti": "^1.9.3",
     "clsx": "^2.1.1",
     "gsap": "^3.12.7",
     "lenis": "^1.2.3",
@@ -32,6 +33,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
+    "@types/canvas-confetti": "^1.9.0",
     "@types/node": "^22.14.0",
     "@types/react": "^18.3.20",
     "@types/react-dom": "^18.3.6",

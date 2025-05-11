@@ -29,12 +29,16 @@ function Index() {
       if (!containerRef.current || loadingProduct || !product) return
 
       const tl = gsap.timeline()
+      gsap.set('.reviews-section', {
+        visibility: 'hidden',
+        pointerEvents: 'none',
+      })
 
       tl.to('.back-btn', {
         opacity: 0,
         x: -100,
         duration: 0.1,
-        ease: 'power4.out',
+        ease: 'power2.out',
       })
         .to(
           '.product-desc',
@@ -42,22 +46,29 @@ function Index() {
             opacity: 0,
             x: 200,
             duration: 0.1,
-            ease: 'power4.out',
+            ease: 'power2.out',
           },
           '<'
+        )
+        .to(
+          ['.back-btn', '.product-desc'],
+          {
+            visibility: 'hidden',
+            pointerEvents: 'none',
+          },
+          0.1
         )
         .to(
           '.product-img',
           {
             left: '50%',
-            xPercent: -7,
             scale: 1.4,
             duration: 0.3,
           },
           '<'
         )
         .to('.product-img', {
-          y: -100,
+          y: -130,
           scale: 0.8,
           top: '10%',
           duration: 0.3,
@@ -65,6 +76,8 @@ function Index() {
         .to('.reviews-section', {
           opacity: 1,
           y: 0,
+          visibility: 'visible',
+          pointerEvents: 'auto',
           duration: 0.3,
         })
         .to(
@@ -90,7 +103,7 @@ function Index() {
         animation: tl,
       })
     },
-    { scope: containerRef, dependencies: [loadingProduct, product, reviews] }
+    { scope: containerRef, dependencies: [loadingProduct, product] }
   )
 
   if (loadingProduct) return null

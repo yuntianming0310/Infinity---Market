@@ -59,7 +59,7 @@ function ProductItem({
         }}
       >
         <div className='overflow-hidden text-2xl tracking-widest'>{name}</div>
-        <div className='overflow-hidden text-lg tracking-wider'>¥{price}</div>
+        <div className='overflow-hidden text-lg tracking-wider'>${price}</div>
       </FloatText>
     </TransitionLink>
   )

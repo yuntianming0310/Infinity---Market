@@ -34,7 +34,7 @@ function Menu({ isOpen }: { isOpen: boolean }) {
     { type: 'link', name: 'Shopping', href: '/market', id: 0 },
     { type: 'link', name: 'Hot Selling', href: '/hot', id: 1 },
     { type: 'link', name: 'Contact Us', href: '/connect', id: 2 },
-    { type: 'link', name: 'Inspiration', href: '/create', id: 3 },
+    { type: 'link', name: 'My Order', protected: true, href: '/order', id: 3 },
     { type: 'link', name: 'About', href: '/about', id: 4 },
     {
       type: 'button',
@@ -42,7 +42,6 @@ function Menu({ isOpen }: { isOpen: boolean }) {
       id: 5,
       onClick: async () => {
         if (!user) {
-          // Switch from menu to login state
           transitionToLoginForm()
         } else {
           toast
@@ -60,7 +59,6 @@ function Menu({ isOpen }: { isOpen: boolean }) {
     },
   ]
 
-  // Handle menu open/close based on isOpen prop
   useEffect(() => {
     if (isOpen) {
       openOverlay()
@@ -69,13 +67,11 @@ function Menu({ isOpen }: { isOpen: boolean }) {
     }
   }, [isOpen])
 
-  // Control functions for UI state transitions
   const openOverlay = () => {
     animations.path.play()
     overlayRef.current?.classList.remove('invisible')
     lenis?.stop()
 
-    // If we were showing login before, switch back to menu
     if (uiState === 'login') {
       animations.loginForm.reverse()
       setTimeout(() => {
@@ -91,7 +87,6 @@ function Menu({ isOpen }: { isOpen: boolean }) {
   }
 
   const closeOverlay = () => {
-    // First hide whatever content is showing
     if (uiState === 'menu') {
       animations.menuItems.reverse()
     } else if (uiState === 'login') {
@@ -100,11 +95,9 @@ function Menu({ isOpen }: { isOpen: boolean }) {
       animations.signUpForm.reverse()
     }
 
-    // Then close the background with a slight delay
     setTimeout(() => {
       animations.path.reverse()
 
-      // Add overlay to invisible class after animation completes
       setTimeout(() => {
         overlayRef.current?.classList.add('invisible')
         lenis?.start()
@@ -165,12 +158,13 @@ function Menu({ isOpen }: { isOpen: boolean }) {
       </div>
 
       <div className={clsx('fixed top-1/6 left-1/4 z-40')}>
-        {/* Menu Items */}
         <ul className='menu-items flex flex-col items-start gap-6 text-6xl text-white font-light tracking-tight uppercase font-DMSans'>
           {menuItemList.map(item => (
             <li key={item.id} className='overflow-hidden'>
               {item.type === 'link' ? (
-                <TransitionLink to={item.href!}>{item.name}</TransitionLink>
+                <TransitionLink to={item.href!} needProtected={item.protected}>
+                  {item.name}
+                </TransitionLink>
               ) : (
                 <button
                   className='uppercase cursor-pointer'
@@ -183,13 +177,11 @@ function Menu({ isOpen }: { isOpen: boolean }) {
           ))}
         </ul>
 
-        {/* Login Form */}
         <LoginForm
           backToMenu={backToMenu}
           transitionToSignUpForm={transitionToSignUpForm}
         />
 
-        {/* Sign Up Form */}
         <SignUpForm
           backToMenu={backToMenu}
           transitionFromSignUpToLogin={transitionFromSignUpToLogin}
@@ -207,13 +199,27 @@ function Footer() {
     <div className='footer text-white font-light absolute right-1/10 bottom-1/10 z-40'>
       <ul className='flex gap-16'>
         <li>
-          <Link to={'/'}>X</Link>
+          <a href='https://x.com/Wn_11_11' target='_blank'>
+            X
+          </a>
         </li>
         <li>
-          <Link to={'/'}>Medium</Link>
+          <a href='https://github.com/yuntianming0310' target='_blank'>
+            GitHub
+          </a>
         </li>
         <li>
-          <Link to={'/'}>掘金</Link>
+          <a href='https://medium.com/me/stories/drafts' target='_blank'>
+            Medium
+          </a>
+        </li>
+        <li>
+          <a
+            href='https://juejin.cn/user/3243991800219339/posts'
+            target='_blank'
+          >
+            掘金
+          </a>
         </li>
       </ul>
     </div>

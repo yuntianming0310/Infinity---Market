@@ -21,7 +21,7 @@ const TransitionLink = forwardRef<HTMLAnchorElement, ITransitionLinkProps>(
 
       if (needProtected && !user) {
         e.preventDefault()
-        toast.error('Please sign in to enter the Cart.')
+        toast.error('Please sign in to enter the page.')
       }
     }
 

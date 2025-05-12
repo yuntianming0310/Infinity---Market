@@ -7,6 +7,7 @@ import ProductView from '@/pages/ProductView'
 import Market from '@/pages/Market'
 import Cart from '@/pages/Cart'
 import Order from '@/pages/Order'
+import NotFound from '@/pages/NotFound'
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: 'order',
         element: <Order />,
+      },
+      {
+        path: '*',
+        element: <NotFound />,
       },
     ],
   },

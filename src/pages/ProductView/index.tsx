@@ -61,18 +61,14 @@ function Index() {
         .to(
           '.product-img',
           {
+            y: -130,
             left: '50%',
-            scale: 1.4,
-            duration: 0.3,
+            scale: 0.8,
+            top: '10%',
+            duration: 0.4,
           },
-          '<'
+          0
         )
-        .to('.product-img', {
-          y: -130,
-          scale: 0.8,
-          top: '10%',
-          duration: 0.3,
-        })
         .to('.reviews-section', {
           opacity: 1,
           y: 0,

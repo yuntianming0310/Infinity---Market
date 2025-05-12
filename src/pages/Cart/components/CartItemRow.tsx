@@ -25,7 +25,7 @@ function CartItemRow({
       _id: string
     }
     quantity: number
-    updatedAt: string
+    updatedAt?: string
   }
 }) {
   const [qty, setQty] = useState(item.quantity)

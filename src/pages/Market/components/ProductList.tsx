@@ -19,7 +19,7 @@ function ProductList() {
       ) : (
         data?.map(product => (
           <ProductItem
-            _id={product._id}
+            {...product}
             imageCover={product.imageCover}
             description={product.description}
             name={product.name}

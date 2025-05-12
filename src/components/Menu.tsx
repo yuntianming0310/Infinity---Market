@@ -1,7 +1,6 @@
 import clsx from 'clsx'
 import toast from 'react-hot-toast'
 import { useLenis } from 'lenis/react'
-import { Link } from 'react-router-dom'
 import { createPortal } from 'react-dom'
 import { useRef, useEffect, useState } from 'react'
 

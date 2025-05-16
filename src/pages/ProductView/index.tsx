@@ -37,6 +37,7 @@ function Index() {
       tl.to('.back-btn', {
         opacity: 0,
         x: -100,
+        scale: 0.92,
         duration: 0.1,
         ease: 'power2.out',
       })
@@ -45,6 +46,7 @@ function Index() {
           {
             opacity: 0,
             x: 200,
+            scale: 0.92,
             duration: 0.1,
             ease: 'power2.out',
           },
@@ -61,21 +63,33 @@ function Index() {
         .to(
           '.product-img',
           {
-            y: -130,
             left: '50%',
-            scale: 0.8,
-            top: '10%',
-            duration: 0.4,
+            scale: 1.2,
+            duration: 0.2,
           },
           0
         )
-        .to('.reviews-section', {
-          opacity: 1,
-          y: 0,
-          visibility: 'visible',
-          pointerEvents: 'auto',
-          duration: 0.3,
-        })
+        .to(
+          '.product-img',
+          {
+            y: -130,
+            scale: 0.8,
+            top: '10%',
+            duration: 0.5,
+          },
+          '-=0.1'
+        )
+        .to(
+          '.reviews-section',
+          {
+            opacity: 1,
+            y: 0,
+            visibility: 'visible',
+            pointerEvents: 'auto',
+            duration: 0.3,
+          },
+          '-=0.4'
+        )
         .to(
           `.review-card`,
           {
@@ -91,7 +105,7 @@ function Index() {
       ScrollTrigger.create({
         trigger: containerRef.current,
         start: 'top top',
-        end: '+=1200',
+        end: '+=1000',
         pin: true,
         anticipatePin: 1,
         scrub: 0.5,

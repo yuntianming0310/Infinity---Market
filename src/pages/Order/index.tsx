@@ -6,9 +6,15 @@ import { Order } from '@/types'
 import { getAllOrders } from '@/api/orders'
 import { useFetchData } from '@/hooks/useFetchData'
 import { formatAddress, formatDate } from '@/pages/Order/utils'
+import { useLenis } from 'lenis/react'
 
 function Index() {
+  const lenis = useLenis()
   const { data: orders, loading } = useFetchData<Order[]>(getAllOrders)
+
+  useEffect(() => {
+    lenis?.start()
+  }, [])
 
   if (loading) {
     return (

@@ -1,5 +1,7 @@
 import gsap from 'gsap'
-import { useState, useRef } from 'react'
+import ScrollTrigger from 'gsap/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+import { useState, useRef, useEffect } from 'react'
 
 import Select from '@/components/Select'
 import Empty from '@/pages/Market/components/Empty'
@@ -7,16 +9,18 @@ import ProductItem from '@/pages/Market/components/ProductItem'
 
 import { useFetchData } from '@/hooks/useFetchData'
 
-import { useGSAP } from '@gsap/react'
 import { TProductItem } from '@/types'
 import { getAllProducts } from '@/api/products'
 import { options } from '@/pages/Market/utils'
+
+gsap.registerPlugin(ScrollTrigger)
 
 function ProductList() {
   const [category, setCategory] = useState<string>('all')
   const [search, setSearch] = useState<string>('')
   const searchRef = useRef<HTMLInputElement>(null)
   const selectRef = useRef<HTMLDivElement>(null)
+  const productsRef = useRef<HTMLDivElement>(null)
 
   const { data, loading: isLoading } = useFetchData<TProductItem[]>(() =>
     getAllProducts({
@@ -34,6 +38,12 @@ function ProductList() {
     return matchCategory && matchSearch
   })
 
+  useEffect(() => {
+    if (filteredData?.length) {
+      ScrollTrigger.refresh()
+    }
+  }, [filteredData])
+
   useGSAP(() => {
     gsap.to(searchRef.current, {
       y: 0,
@@ -46,7 +56,7 @@ function ProductList() {
     gsap.fromTo(
       selectRef.current,
       {
-        y: -20,
+        y: 20,
         opacity: 0,
       },
       {
@@ -58,6 +68,24 @@ function ProductList() {
       }
     )
   })
+
+  useGSAP(() => {
+    const products = productsRef.current?.children
+    if (!products) return
+
+    gsap.from(products, {
+      opacity: 0,
+      y: 30,
+      duration: 1,
+      ease: 'power4.out',
+      stagger: 0.1,
+      scrollTrigger: {
+        trigger: productsRef.current,
+        start: 'top 75%',
+        toggleActions: 'play none none reverse',
+      },
+    })
+  }, [filteredData])
 
   return (
     <div className='w-full grid grid-cols-2 px-48 py-32 gap-8'>
@@ -88,9 +116,11 @@ function ProductList() {
       ) : !filteredData?.length ? (
         <Empty />
       ) : (
-        filteredData?.map(product => (
-          <ProductItem {...product} key={product._id} />
-        ))
+        <div ref={productsRef} className='grid grid-cols-2 gap-8 col-span-2'>
+          {filteredData?.map(product => (
+            <ProductItem key={product._id} {...product} />
+          ))}
+        </div>
       )}
     </div>
   )

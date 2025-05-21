@@ -1,7 +1,3 @@
-import gsap from 'gsap'
-import { useRef } from 'react'
-import { useGSAP } from '@gsap/react'
-
 import { TProductItem } from '@/types'
 
 import FloatText from '@/components/FloatText'
@@ -14,28 +10,8 @@ function ProductItem({
   price,
   _id,
 }: TProductItem) {
-  const containerRef = useRef<HTMLAnchorElement>(null)
-
-  useGSAP(
-    () => {
-      gsap.from(containerRef.current, {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        ease: 'power4.out',
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-    },
-    { scope: containerRef }
-  )
-
   return (
     <TransitionLink
-      ref={containerRef}
       className='cursor-pointer'
       to='/product'
       state={{

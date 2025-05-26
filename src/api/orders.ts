@@ -1,7 +1,10 @@
 import axiosInstance from '@/api'
+import { ShippingAddress } from '@/types'
 
-export async function createNewOrder() {
-  const res = await axiosInstance.post('/orders')
+export async function createNewOrder(shippingAddress: ShippingAddress) {
+  const res = await axiosInstance.post('/orders', {
+    shippingAddress,
+  })
   return res.data
 }
 

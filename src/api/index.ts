@@ -24,12 +24,16 @@ axiosInstance.interceptors.response.use(
     return response.data
   },
   error => {
-    // Handle auth errors (e.g., 401 Unauthorized)
-    if (error.response?.status === 401) {
-      // Handle unauthorized error (e.g., redirect to login)
+    if (error.response?.status === 401 && !error.config._hasErrorHandler) {
       toast.error("You're not logged in yet! Please log in first.")
     }
-    return Promise.reject(error)
+
+    const errorResponse = error.response?.data || {
+      message: error.message || 'An unexpected error occurred',
+      status: 'error',
+    }
+
+    return Promise.reject(errorResponse)
   }
 )
 

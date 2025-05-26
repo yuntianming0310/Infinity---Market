@@ -6,6 +6,7 @@ import { addItemToCart } from '@/api/carts'
 import { useDebouncedCallback } from '@/hooks/useDebouncedCallback'
 import { useCartActions } from '@/stores/cartStore'
 import { TProductItem } from '@/types'
+import TransitionLink from '@/components/TransitionLink'
 
 function ProductDescription({ product }: { product: TProductItem }) {
   const [count, setCount] = useState(1)
@@ -26,7 +27,17 @@ function ProductDescription({ product }: { product: TProductItem }) {
         product,
         quantity: count,
       })
-      toast.success('Successfully Added')
+      toast.success(
+        <div>
+          Successfully Added.{' '}
+          <TransitionLink
+            to='/cart'
+            className='text-amber-600 border-b border-black'
+          >
+            Jump into 🛒
+          </TransitionLink>
+        </div>
+      )
     } catch (err) {
       if (err instanceof AxiosError) {
         if (err.status !== 401) {
@@ -36,7 +47,7 @@ function ProductDescription({ product }: { product: TProductItem }) {
         toast.error('An unexpected error occurred.')
       }
     }
-  }, 500)
+  }, 300)
 
   return (
     <div className='flex-1/4 flex flex-col justify-center items-start product-desc'>

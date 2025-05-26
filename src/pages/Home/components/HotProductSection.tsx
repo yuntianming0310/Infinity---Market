@@ -1,14 +1,12 @@
 import { useRef } from 'react'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
 
 import ParallaxLink from '@/components/ParallaxLink'
 import ParallaxImage from '@/components/ParallaxImage'
 import TransitionLink from '@/components/TransitionLink'
 import DividerWithTitle from '@/components/DividerWithTitle'
 
-import { useFetchData } from '@/hooks/useFetchData'
 import useInteractiveCursor from '../hooks/useInteractiveCursor'
+import { useFetchData } from '@/hooks/useFetchData'
 import { getBestSellerProducts } from '@/api/products'
 
 /**
@@ -92,39 +90,12 @@ function Cursor({
 }
 
 function BestSellerProductsList() {
-  const boxRef = useRef<HTMLDivElement>(null)
   const { data: products, loading: isLoading } = useFetchData<TProductItem[]>(
     getBestSellerProducts
   )
 
-  useGSAP(
-    () => {
-      gsap.fromTo(
-        boxRef.current,
-        {
-          opacity: 0,
-        },
-        {
-          opacity: 1,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: boxRef.current,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse',
-            // markers: true,
-          },
-        }
-      )
-    },
-    { scope: boxRef }
-  )
-
   return (
-    <div
-      className='w-full flex items-center justify-center gap-12'
-      ref={boxRef}
-    >
+    <div className='w-full flex items-center justify-center gap-12'>
       {isLoading ? (
         <div className='w-full min-h-[64rem]'></div>
       ) : (

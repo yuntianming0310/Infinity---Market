@@ -90,12 +90,14 @@ export const useCartActions = () => {
     state => state.updateProductQuantity
   )
   const clearCart = useCartStore(state => state.clearCart)
+  const isCartEmpty = useCartStore(state => state.products.length === 0)
 
   return {
     setProducts,
     addProduct,
     removeProduct,
     updateProductQuantity,
+    isCartEmpty,
     clearCart,
   }
 }

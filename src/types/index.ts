@@ -20,10 +20,10 @@ export type OrderItem = {
 }
 
 export type ShippingAddress = {
-  address?: string
-  city?: string
-  postalCode?: string
-  country?: string
+  address: string
+  city: string
+  postalCode: string
+  country: string
 }
 
 export type OrderStatus =

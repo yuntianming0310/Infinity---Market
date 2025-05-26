@@ -1,8 +1,8 @@
-import { useRef } from 'react'
 import gsap from 'gsap'
+import { useRef } from 'react'
+import SplitType from 'split-type'
 import { useGSAP } from '@gsap/react'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import SplitType from 'split-type'
 
 import ParallaxImage from '@/components/ParallaxImage'
 import TransitionLink from '@/components/TransitionLink'
@@ -27,26 +27,8 @@ function IntroSection() {
 }
 
 function ShortIntroForAboutUs() {
-  const imgContainerRef = useRef<HTMLDivElement>(null)
-
-  useGSAP(
-    () => {
-      gsap.from('.scrollTriggerImg', {
-        opacity: 0,
-        duration: 1,
-        ease: 'power4.out',
-        scrollTrigger: {
-          trigger: imgContainerRef.current,
-          start: 'top 75%',
-          toggleActions: 'play none none reverse',
-        },
-      })
-    },
-    { scope: imgContainerRef }
-  )
-
   return (
-    <div className='w-full space-y-10 text-4xl' ref={imgContainerRef}>
+    <div className='w-full space-y-10 text-4xl'>
       <div className='flex flex-col items-center justify-center gap-16'>
         <div className='w-full h-[48rem] overflow-hidden'>
           <ParallaxImage

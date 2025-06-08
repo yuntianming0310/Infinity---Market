@@ -151,14 +151,14 @@ function SignUpForm({
         </div>
         <div className='flex justify-between pt-4'>
           <button
-            className='px-6 py-2 border border-white/50 hover:bg-white hover:text-black transition-colors cursor-pointer'
+            className='px-6 py-2 border border-white/50 hover:bg-white hover:text-black transition-colors'
             type='submit'
           >
             Sign Up
           </button>
           <button
             type='button'
-            className='px-6 py-2 text-white/70 hover:text-white transition-colors cursor-pointer'
+            className='px-6 py-2 text-white/70 hover:text-white transition-colors'
             onClick={backToMenu}
           >
             Back
@@ -175,7 +175,7 @@ function SignUpForm({
         <p className='mt-4 text-2xl'>
           Already have an account?{' '}
           <button
-            className='border-b border-white cursor-pointer hover:border-transparent'
+            className='border-b border-white hover:border-transparent'
             onClick={transitionFromSignUpToLogin}
             type='button'
           >

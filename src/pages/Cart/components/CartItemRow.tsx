@@ -78,7 +78,7 @@ function CartItemRow({
         <div className='flex items-center border border-gray-200 rounded-xl px-1 py-1'>
           <button
             onClick={decrease}
-            className='w-8 h-8 flex items-center justify-center text-gray-800 cursor-pointer focus:outline-none'
+            className='w-8 h-8 flex items-center justify-center text-gray-800 focus:outline-none'
           >
             <span className='text-xl'>-</span>
           </button>
@@ -87,7 +87,7 @@ function CartItemRow({
 
           <button
             onClick={increase}
-            className='w-8 h-8 flex items-center justify-center text-gray-800 cursor-pointer focus:outline-none'
+            className='w-8 h-8 flex items-center justify-center text-gray-800 focus:outline-none'
           >
             <span className='text-xl'>+</span>
           </button>

@@ -12,7 +12,7 @@ function HamburgerButton() {
     <div className='flex items-center justify-center ani-el'>
       <button
         onClick={handleHamburgerClick}
-        className='relative w-8 h-6 cursor-pointer focus:outline-none group'
+        className='relative w-8 h-6 focus:outline-none group'
       >
         <span
           className={`absolute left-1/2 top-1/2 h-[1px] w-full bg-white transform -translate-x-1/2 transition duration-300 ease-in-out

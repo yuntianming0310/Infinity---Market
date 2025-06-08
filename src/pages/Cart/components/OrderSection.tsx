@@ -193,7 +193,7 @@ function CheckOutButton({
 
   return (
     <button
-      className='w-full rounded-lg mt-12 py-6 transition-all duration-200 bg-amber-300 text-[#000000dd] cursor-pointer hover:bg-amber-400 disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed'
+      className='w-full rounded-lg mt-12 py-6 transition-all duration-200 bg-amber-300 text-[#000000dd]  hover:bg-amber-400 disabled:bg-gray-500 disabled:text-gray-300 disabled:cursor-not-allowed'
       onClick={handleClick}
       disabled={isCartEmpty || !isAddressComplete()}
     >

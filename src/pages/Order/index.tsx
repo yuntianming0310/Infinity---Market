@@ -4,11 +4,13 @@ import { useLenis } from 'lenis/react'
 import { Order } from '@/types'
 import { getAllOrders } from '@/api/orders'
 import { useFetchData } from '@/hooks/useFetchData'
+
 import OrderItemRow from '@/pages/Order/components/OrderItemRow'
+import Modal from '@/components/Modal'
 
 function Index() {
   const lenis = useLenis()
-  const { data: orders, loading } = useFetchData<Order[]>(getAllOrders)
+  const { data: orders, loading, refetch } = useFetchData<Order[]>(getAllOrders)
 
   useEffect(() => {
     lenis?.start()
@@ -23,27 +25,33 @@ function Index() {
   }
 
   return (
-    <div className='min-h-screen w-full px-6 py-8 bg-gray-50 md:px-24 md:py-24'>
-      <div className='w-full flex items-center justify-between mb-6 pb-2 border-b border-gray-300 text-gray-400'>
-        <span>Order</span>
-        <span>Price</span>
-      </div>
+    <Modal>
+      <div className='min-h-screen w-full px-6 py-8 bg-gray-50 md:px-24 md:py-24'>
+        <div className='w-full flex items-center justify-between mb-6 pb-2 border-b border-gray-300 text-gray-400'>
+          <span>Order</span>
+          <span>Price</span>
+        </div>
 
-      {orders?.length === 0 ? (
-        <div className='text-center text-gray-400 py-48'>
-          <div className='text-6xl mb-8'>Your order is empty 🛒</div>
-          <div className='text-3xl'>
-            Start shopping and fill it with awesome items!
+        {orders?.length === 0 ? (
+          <div className='text-center text-gray-400 py-48'>
+            <div className='text-6xl mb-8'>Your order is empty 🛒</div>
+            <div className='text-3xl'>
+              Start shopping and fill it with awesome items!
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className='mb-12'>
-          {orders?.map(order => (
-            <OrderItemRow key={order._id} order={order} />
-          ))}
-        </div>
-      )}
-    </div>
+        ) : (
+          <div className='mb-12'>
+            {orders?.map(order => (
+              <OrderItemRow
+                key={order._id}
+                order={order}
+                onReviewSubmit={refetch}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+    </Modal>
   )
 }
 

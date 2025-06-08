@@ -96,14 +96,14 @@ function LoginForm({
         </div>
         <div className='flex justify-between pt-4'>
           <button
-            className='px-6 py-2 border border-white/50 hover:bg-white hover:text-black transition-colors cursor-pointer'
+            className='px-6 py-2 border border-white/50 hover:bg-white hover:text-black transition-colors'
             type='submit'
           >
             Sign In
           </button>
           <button
             type='button'
-            className='px-6 py-2 text-white/70 hover:text-white transition-colors cursor-pointer'
+            className='px-6 py-2 text-white/70 hover:text-white transition-colors'
             onClick={backToMenu}
           >
             Back
@@ -121,7 +121,7 @@ function LoginForm({
           Need an account?{' '}
           <button
             type='button'
-            className='border-b border-white cursor-pointer hover:border-transparent'
+            className='border-b border-white hover:border-transparent'
             onClick={transitionToSignUpForm}
           >
             Sign Up

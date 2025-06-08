@@ -156,17 +156,30 @@ function Menu({ isOpen }: { isOpen: boolean }) {
         </svg>
       </div>
 
-      <div className={clsx('fixed top-1/6 left-1/4 z-40')}>
+      <div
+        className={clsx(
+          'fixed top-1/6 left-1/4 z-40',
+          !isOpen && 'invisible pointer-events-none'
+        )}
+      >
         <ul className='menu-items flex flex-col items-start gap-6 text-6xl text-white font-light tracking-tight uppercase font-DMSans'>
           {menuItemList.map(item => (
             <li key={item.id} className='overflow-hidden'>
               {item.type === 'link' ? (
-                <TransitionLink to={item.href!} needProtected={item.protected}>
+                <TransitionLink
+                  to={item.href!}
+                  needProtected={item.protected}
+                  className={clsx(
+                    'block transition-all duration-500 hover:tracking-widest hover:opacity-80'
+                  )}
+                >
                   {item.name}
                 </TransitionLink>
               ) : (
                 <button
-                  className='uppercase cursor-pointer'
+                  className={clsx(
+                    'uppercase transition-all duration-500 hover:tracking-widest hover:opacity-80'
+                  )}
                   onClick={item.onClick}
                 >
                   {item.name}

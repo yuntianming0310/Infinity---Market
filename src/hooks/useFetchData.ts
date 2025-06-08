@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 
 interface FetchState<T> {
   data: T | null
   loading: boolean
   error: string | null
+  refetch: () => Promise<void>
 }
 
 export function useFetchData<T>(
@@ -14,10 +15,29 @@ export function useFetchData<T>(
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
 
+  const fetchData = useCallback(async () => {
+    setLoading(true)
+    setError(null)
+
+    try {
+      const result = await apiFn()
+      setData(result)
+    } catch (err: any) {
+      setError(err?.response?.data?.message || err?.message || 'Error occurred')
+      setData(null)
+    } finally {
+      setLoading(false)
+    }
+  }, [apiFn])
+
+  const refetch = useCallback(async () => {
+    await fetchData()
+  }, [fetchData])
+
   useEffect(() => {
     let isCancelled = false
 
-    async function fetchData() {
+    async function initialFetch() {
       setLoading(true)
       try {
         const result = await apiFn()
@@ -39,12 +59,12 @@ export function useFetchData<T>(
       }
     }
 
-    fetchData()
+    initialFetch()
 
     return () => {
       isCancelled = true
     }
   }, deps)
 
-  return { data, loading, error }
+  return { data, loading, error, refetch }
 }

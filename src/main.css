@@ -58,6 +58,10 @@ body {
   color: var(--color-text-primary);
 }
 
+button {
+  cursor: pointer;
+}
+
 html.lenis,
 html.lenis body {
   height: auto;

@@ -64,7 +64,7 @@ function ProductDescription({ product }: { product: TProductItem }) {
         </span>
 
         <button
-          className='cursor-pointer w-10 aspect-square rounded-full mr-4'
+          className='w-10 aspect-square rounded-full mr-4'
           style={{
             boxShadow: '0 4px 9px rgba(0, 0, 0, 0.2)',
           }}
@@ -73,7 +73,7 @@ function ProductDescription({ product }: { product: TProductItem }) {
           +
         </button>
         <button
-          className='cursor-pointer w-10 aspect-square rounded-full'
+          className='w-10 aspect-square rounded-full'
           style={{
             boxShadow: '0 4px 9px rgba(0, 0, 0, 0.2)',
           }}
@@ -84,7 +84,7 @@ function ProductDescription({ product }: { product: TProductItem }) {
       </div>
 
       <button
-        className='uppercase cursor-pointer font-semibold rounded-full px-24 py-4 bg-amber-300 mt-18'
+        className='uppercase font-semibold rounded-full px-24 py-4 bg-amber-300 mt-18'
         style={{
           boxShadow: '0 4px 9px rgb(229, 193, 65)',
         }}

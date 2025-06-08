@@ -9,14 +9,15 @@ export type TProductItem = {
   tags: string[]
   isFeatured: boolean
   createdAt: string
-  __v: number
 }
 
 export type OrderItem = {
+  _id: string
   product: TProductItem
   name: string
   price: number
   quantity: number
+  review?: Review
 }
 
 export type ShippingAddress = {
@@ -43,4 +44,21 @@ export type Order = {
   paymentMethod: string
   paidAt?: string
   createdAt: string
+}
+
+export type Review = {
+  _id: string
+  user: {
+    _id: string
+    name: string
+  }
+  product: string
+  order: string
+  orderItem: string
+  rating: number
+  content: string
+  createdAt: string
+  updatedAt: string
+  __v: number
+  id: string
 }
